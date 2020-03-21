@@ -87,7 +87,7 @@ def test_04_get_post_with_user_id():
     }
 
     response = json_placeholder_API.get_post_with_user_id(user_id=expected_result['userId'])
-    assert response.status_code == 201, "Status code for response not equal 200"
+    assert response.status_code == 200, "Status code for response not equal 200"
     if expected_result in response.json():
         assert True
     else:
