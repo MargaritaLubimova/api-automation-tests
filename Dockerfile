@@ -4,9 +4,22 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 
-RUN apt-get update && apt-get install -y python3-pip
+# Install Python
+
+RUN apt-get update
+RUN apt-get install -y python3-pip
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Allure
+
+RUN apt-get install sudo
+RUN sudo apt-get install -y software-properties-common
+RUN sudo apt-add-repository ppa:qameta/allure
+RUN sed -i 's/focal/xenial/g' /etc/apt/sources.list.d/qameta-ubuntu-allure-focal.list
+RUN sudo apt-get update --allow-insecure-repositories
+RUN sudo apt-get install -y --allow-unauthenticated allure
+RUN sudo apt-get install -y nodejs npm && npm install -g allure-commandline --save-dev
 
 COPY . .
 
-CMD [ "py.test", "./tests/API_tests.py" ]
+CMD pytest --alluredir=./tests/allure/result/ ./tests/API_tests.py;  allure generate -c -o ./tests/allure/report ./tests/allure/result && allure open -p 8000 ./tests/allure/report

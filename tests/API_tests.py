@@ -4,6 +4,7 @@ import sys
 import allure
 import pytest
 import random
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from helper.api import JsonPlaceholderAPI
@@ -11,8 +12,7 @@ from helper.api import JsonPlaceholderAPI
 json_placeholder_API = JsonPlaceholderAPI()
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check entries in response for get posts')
+@allure.title('Check entries in response for get posts')
 def test_01_get_posts():
     response = json_placeholder_API.get_posts()
 
@@ -22,12 +22,11 @@ def test_01_get_posts():
     expected_entries = ["userId", "id", "title", "body"]
     all_entries_exist = set(post.keys()) == set(expected_entries)
 
-    assert len(post) == 4,     "Not all entries exist in the post"
-    assert all_entries_exist,  "Not all name entries in the post is right"
+    assert len(post) == 4, "Not all entries exist in the post"
+    assert all_entries_exist, "Not all name entries in the post is right"
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check response for get post with post id')
+@allure.title('Check response for get post with post id')
 def test_02_get_post_with_post_id():
     post_id = 40
     expected_user_id = 4
@@ -40,13 +39,12 @@ def test_02_get_post_with_post_id():
 
     post = response.json()
     assert post['userId'] == expected_user_id, "Post was gotten has wrong user id"
-    assert post['id'] == post_id,              "Post was gotten has wrong id"
-    assert post['title'] == expected_title,    "Post was gotten has wrong title"
-    assert post['body'] == expected_body,      "Post was gotten has wrong body"
+    assert post['id'] == post_id, "Post was gotten has wrong id"
+    assert post['title'] == expected_title, "Post was gotten has wrong title"
+    assert post['body'] == expected_body, "Post was gotten has wrong body"
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check response for get comment with post id and id')
+@allure.title('Check response for get comment with post id and id')
 def test_03_get_comments_with_post_id():
     expected_result = {
         'postId': 4,
@@ -71,14 +69,14 @@ def test_03_get_comments_with_post_id():
                 if expected != actual:
                     return "Value for key: {} is incorrect".format(key)
 
-            res = "\n".join(filter(lambda x: x is not None, map(lambda x: get_incorrect_values(x, expected_result[x], val[x]),
-                                                                expected_result.keys())))
+            res = "\n".join(
+                filter(lambda x: x is not None, map(lambda x: get_incorrect_values(x, expected_result[x], val[x]),
+                                                    expected_result.keys())))
 
             assert len(res) == 0, "{}".format(res)
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check response for get post with user id')
+@allure.title('Check response for get post with user id')
 def test_04_get_post_with_user_id():
     expected_result = {
         'userId': 5,
@@ -89,7 +87,7 @@ def test_04_get_post_with_user_id():
     }
 
     response = json_placeholder_API.get_post_with_user_id(user_id=expected_result['userId'])
-    assert response.status_code == 200, "Status code for response not equal 200"
+    assert response.status_code == 201, "Status code for response not equal 200"
     if expected_result in response.json():
         assert True
     else:
@@ -110,8 +108,7 @@ def test_04_get_post_with_user_id():
             assert len(res) == 0, "{}".format(res)
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check create new post')
+@allure.title('Check create new post')
 @pytest.mark.dependency()
 def test_05_create_new_post():
     body = {
@@ -129,8 +126,7 @@ def test_05_create_new_post():
     assert post['body'] == body['body'], "Post was created has wrong body"
 
 
-@allure.feature('Tests JSONPlaceholder')
-@allure.story('Check create new post')
+@allure.title('Check delete created post')
 @pytest.mark.dependency(depends=['test_05_create_new_post'])
 def test_06_deleted_created_post():
     body = {
@@ -144,5 +140,3 @@ def test_06_deleted_created_post():
     response = json_placeholder_API.delete_post(post_id, body['userId'])
 
     assert response.status_code == 200, "Status code for response not equal 200"
-
-
