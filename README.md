@@ -25,4 +25,6 @@ http://127.0.0.1:4200
 </p>
 
 #### Detailed report
-<img src = "./source/002.png">
+<p align = "center">
+    <img src = "./source/002.png">
+</p>
