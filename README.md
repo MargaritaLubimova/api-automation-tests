@@ -11,13 +11,10 @@ docker build -t api-tests .
 ```
 ##### Run docker container
 ```bash
-docker run -it  -p 4200:8000 --name my-running-app api-tests
+docker run -it -rm -p 4200:8000 --name my-running-app api-tests
 ```
-##### During running docker container after finish all tests open link in a browser 
-```
-http://127.0.0.1:4200
-```
-#### You can see an attached report example
+##### During running docker container when all tests will pass open link in a browser to check the actual report [localhost:4200](http://localhost:4200)
+#### Example of the report
 
 #### Overview
 <p align = "center">
