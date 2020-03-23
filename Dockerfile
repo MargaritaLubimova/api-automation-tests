@@ -22,4 +22,4 @@ RUN sudo apt-get install -y nodejs npm && npm install -g allure-commandline --sa
 
 COPY . .
 
-CMD pytest --alluredir=./tests/allure/result/ ./tests/API_tests.py;  allure generate -c -o ./tests/allure/report ./tests/allure/result && allure open -p 8000 ./tests/allure/report
+CMD bash in_docker_run.sh
