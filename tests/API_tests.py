@@ -1,12 +1,6 @@
-import os
-import sys
-
 import allure
 import pytest
 import random
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-
 from helper.api import JsonPlaceholderAPI
 
 json_placeholder_API = JsonPlaceholderAPI()
