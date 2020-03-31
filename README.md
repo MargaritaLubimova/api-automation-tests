@@ -1,5 +1,5 @@
 <a href="http://34.89.223.149/viewType.html?buildTypeId=Run_Tests_ID&guest=1">
-<img src="https://img.shields.io/teamcity/build/s/Run_Tests_ID?label=TC%20build%20and%20tests&server=http%3A%2F%2F34.89.223.149"/>
+<img src="https://img.shields.io/teamcity/build/s/Run_Tests_ID?label=TC%20build&server=http%3A%2F%2F34.89.223.149"/>
 </a>
 
 # API Automation Tests
